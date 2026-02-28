@@ -12,8 +12,8 @@ const nextConfig: NextConfig = {
         name: "host",
         filename: "static/chunks/remoteEntry.js",
         remotes: {
-          remote1: `remote1@http://localhost:3001/_next/static/${location}/remoteEntry.js`,
-          remote2: `remote2@http://localhost:3002/_next/static/${location}/remoteEntry.js`,
+          remote1: `remote1@${process.env.REMOTE1_URL}/_next/static/${location}/remoteEntry.js`,
+          remote2: `remote2@${process.env.REMOTE2_URL}/_next/static/${location}/remoteEntry.js`,
         },
         shared: {
           react: {
