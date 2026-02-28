@@ -1,9 +1,38 @@
 import type { NextConfig } from "next";
+import NextFederationPlugin from "@module-federation/nextjs-mf";
 
 const nextConfig: NextConfig = {
-  /* config options here */
-  reactCompiler: true,
   reactStrictMode: true,
+
+  webpack(config, { isServer }) {
+    const location = isServer ? "ssr" : "chunks";
+
+    config.plugins.push(
+      new NextFederationPlugin({
+        name: "host",
+        filename: "static/chunks/remoteEntry.js",
+        remotes: {
+          remote1: `remote1@http://localhost:3001/_next/static/${location}/remoteEntry.js`,
+          remote2: `remote2@http://localhost:3002/_next/static/${location}/remoteEntry.js`,
+        },
+        shared: {
+          react: {
+            singleton: true,
+            requiredVersion: false,
+            strictVersion: false,
+          },
+          "react-dom": {
+            singleton: true,
+            requiredVersion: false,
+            strictVersion: false,
+          },
+        },
+        extraOptions: {},
+      })
+    );
+
+    return config;
+  },
 };
 
 export default nextConfig;
