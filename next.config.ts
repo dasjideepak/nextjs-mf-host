@@ -46,6 +46,7 @@ const nextConfig: NextConfig = {
               },
             },
         extraOptions: {},
+        runtimePlugins: [require.resolve("./src/federation/remoteOfflineRuntimePlugin.js")],
       }),
     );
 
