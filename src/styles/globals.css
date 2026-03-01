@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@source "../**/*.{js,jsx,ts,tsx}";
+@source "../../node_modules/@dasjideepak/mf-shared-ui/dist/**/*.{js,mjs,cjs}";
 @source "../../../remote1/src/**/*.{js,jsx,ts,tsx}";
 @source "../../../remote2/src/**/*.{js,jsx,ts,tsx}";
 
