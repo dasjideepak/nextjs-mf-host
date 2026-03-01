@@ -45,7 +45,9 @@ const nextConfig: NextConfig = {
                 strictVersion: false,
               },
             },
-        extraOptions: {},
+        extraOptions: {
+          skipSharingNextInternals: true,
+        },
         runtimePlugins: [require.resolve("./src/federation/remoteOfflineRuntimePlugin.js")],
       }),
     );
