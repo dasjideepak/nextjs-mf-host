@@ -3,6 +3,7 @@
 @source "../../node_modules/@dasjideepak/mf-shared-ui/dist/**/*.{js,mjs,cjs}";
 @source "../../../remote1/src/**/*.{js,jsx,ts,tsx}";
 @source "../../../remote2/src/**/*.{js,jsx,ts,tsx}";
+@source "./remote-safelist.txt";
 
 body {
   background-color: #f8fafc;
