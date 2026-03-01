@@ -55,6 +55,15 @@ async function collectFiles(dirPath) {
   return files;
 }
 
+async function pathExists(targetPath) {
+  try {
+    await fs.access(targetPath);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 function isLikelyTailwindToken(token) {
   if (!token) return false;
   if (token.includes("${")) return false;
@@ -114,13 +123,38 @@ function extractTokensFromFile(content, tokens) {
 
 async function main() {
   const tokens = new Set();
+  let processedSourceDirCount = 0;
 
   for (const sourceDir of SOURCE_DIRS) {
+    if (!(await pathExists(sourceDir))) {
+      process.stdout.write(
+        `Skipping missing source directory: ${sourceDir}\n`
+      );
+      continue;
+    }
+
+    processedSourceDirCount += 1;
     const files = await collectFiles(sourceDir);
     for (const filePath of files) {
       const content = await fs.readFile(filePath, "utf8");
       extractTokensFromFile(content, tokens);
     }
+  }
+
+  if (processedSourceDirCount === 0) {
+    if (await pathExists(OUTPUT_FILE)) {
+      process.stdout.write(
+        `No source directories found; keeping existing ${path.relative(
+          hostRoot,
+          OUTPUT_FILE
+        )}.\n`
+      );
+      return;
+    }
+
+    throw new Error(
+      `No source directories found and no existing safelist at ${OUTPUT_FILE}.`
+    );
   }
 
   const output = `${[...tokens].sort().join("\n")}\n`;
