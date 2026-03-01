@@ -1,3 +1,8 @@
 @import "tailwindcss";
 @source "../../../remote1/src/**/*.{js,jsx,ts,tsx}";
 @source "../../../remote2/src/**/*.{js,jsx,ts,tsx}";
+
+body {
+  background-color: #f8fafc;
+  min-height: 100vh;
+}

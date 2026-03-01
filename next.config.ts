@@ -3,6 +3,7 @@ import NextFederationPlugin from "@module-federation/nextjs-mf";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  transpilePackages: ["@dasjideepak/mf-shared-ui"],
 
   webpack(config, { isServer }) {
     const location = isServer ? "ssr" : "chunks";
@@ -17,7 +18,9 @@ const nextConfig: NextConfig = {
         },
         exposes: isServer
           ? {}
-          : { "./GlobalContext": "./src/context/GlobalContext" },
+          : {
+              "./GlobalContext": "./src/context/GlobalContext",
+            },
         shared: isServer
           ? {}
           : {
@@ -35,7 +38,7 @@ const nextConfig: NextConfig = {
               },
             },
         extraOptions: {},
-      })
+      }),
     );
 
     return config;

@@ -2,9 +2,10 @@
 
 This project is the **host** app for a Next.js Module Federation setup using `@module-federation/nextjs-mf`.
 
-The host loads two remote applications:
-- `remote1/DashboardApp`
-- `remote2/DashboardApp`
+The host loads one role-selected remote application:
+
+- `remote1/DashboardShell` (customer)
+- `remote2/DashboardShell` (admin)
 
 ## Strict Rules (Must Follow)
 
@@ -20,6 +21,7 @@ These rules are mandatory for this app:
 - **Failure handling**: Always provide fallback UI/error handling when a remote fails to load.
 
 Current baseline in this app:
+
 - `next`: `15.3.8`
 - `react`: `18.2.0`
 - `react-dom`: `18.2.0`
@@ -57,6 +59,7 @@ http://localhost:3000
 ## Federation Configuration
 
 Federation is configured in `next.config.ts`:
+
 - Host name: `host`
 - Remote entry output: `static/chunks/remoteEntry.js`
 - Remote entries:

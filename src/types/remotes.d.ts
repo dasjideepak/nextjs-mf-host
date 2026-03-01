@@ -1,27 +1,49 @@
-declare module "remote1/DashboardApp" {
+declare module "remote1/DashboardShell" {
   import type { ComponentType } from "react";
 
-  interface SharedState {
-    count: number;
-    increment: () => void;
-    decrement: () => void;
-    setCount: (value: number) => void;
+  type NotificationType = "info" | "success" | "warning" | "error";
+
+  interface Notification {
+    id: string;
+    message: string;
+    type: NotificationType;
+    timestamp: number;
   }
 
-  const DashboardApp: ComponentType<{ sharedState?: SharedState }>;
-  export default DashboardApp;
+  interface SharedDashboardState {
+    theme: "light" | "dark";
+    toggleTheme: () => void;
+    notifications: Notification[];
+    addNotification: (message: string, type: NotificationType) => void;
+    dismissNotification: (id: string) => void;
+    clearNotifications: () => void;
+  }
+
+  const DashboardShell: ComponentType<{ sharedState?: SharedDashboardState }>;
+  export default DashboardShell;
 }
 
-declare module "remote2/DashboardApp" {
+declare module "remote2/DashboardShell" {
   import type { ComponentType } from "react";
 
-  interface SharedState {
-    count: number;
-    increment: () => void;
-    decrement: () => void;
-    setCount: (value: number) => void;
+  type NotificationType = "info" | "success" | "warning" | "error";
+
+  interface Notification {
+    id: string;
+    message: string;
+    type: NotificationType;
+    timestamp: number;
   }
 
-  const DashboardApp: ComponentType<{ sharedState?: SharedState }>;
-  export default DashboardApp;
+  interface SharedDashboardState {
+    theme: "light" | "dark";
+    toggleTheme: () => void;
+    notifications: Notification[];
+    addNotification: (message: string, type: NotificationType) => void;
+    dismissNotification: (id: string) => void;
+    clearNotifications: () => void;
+  }
+
+  const DashboardShell: ComponentType<{ sharedState?: SharedDashboardState }>;
+  export default DashboardShell;
 }
