@@ -59,8 +59,6 @@ export default function DashboardGatewayPage() {
     isAuthenticated,
     user,
     logout,
-    theme,
-    toggleTheme,
     notifications,
     addNotification,
     dismissNotification,
@@ -92,8 +90,6 @@ export default function DashboardGatewayPage() {
   const AppShell = user.role === "customer" ? CustomerDashboardShell : AdminDashboardShell;
 
   const sharedState = {
-    theme,
-    toggleTheme,
     notifications,
     addNotification,
     dismissNotification,

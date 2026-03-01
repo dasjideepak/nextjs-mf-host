@@ -2,7 +2,6 @@ import { createContext, useContext, useState, useCallback, useMemo, useEffect } 
 import type { ReactNode } from "react";
 
 export type UserRole = "customer" | "admin";
-export type Theme = "light" | "dark";
 export type NotificationType = "info" | "success" | "warning" | "error";
 
 export interface AuthUser {
@@ -24,8 +23,6 @@ export interface GlobalState {
   user: AuthUser | null;
   loginAs: (role: UserRole) => void;
   logout: () => void;
-  theme: Theme;
-  toggleTheme: () => void;
   notifications: Notification[];
   addNotification: (message: string, type: NotificationType) => void;
   dismissNotification: (id: string) => void;
@@ -37,7 +34,6 @@ const PERSISTENCE_KEY = "mf-host-global-state";
 
 interface PersistedGlobalState {
   user: AuthUser | null;
-  theme: Theme;
   notifications: Notification[];
 }
 
@@ -46,7 +42,6 @@ let notifCounter = 0;
 export function GlobalProvider({ children }: { children: ReactNode }) {
   const [isHydrated, setIsHydrated] = useState(false);
   const [user, setUser] = useState<AuthUser | null>(null);
-  const [theme, setTheme] = useState<Theme>("light");
   const [notifications, setNotifications] = useState<Notification[]>([]);
 
   const loginAs = useCallback((role: UserRole) => {
@@ -59,10 +54,6 @@ export function GlobalProvider({ children }: { children: ReactNode }) {
 
   const logout = useCallback(() => {
     setUser(null);
-  }, []);
-
-  const toggleTheme = useCallback(() => {
-    setTheme((prev) => (prev === "light" ? "dark" : "light"));
   }, []);
 
   const addNotification = useCallback((message: string, type: NotificationType) => {
@@ -96,7 +87,6 @@ export function GlobalProvider({ children }: { children: ReactNode }) {
 
       const parsed = JSON.parse(raw) as PersistedGlobalState;
       setUser(parsed.user ?? null);
-      setTheme(parsed.theme ?? "light");
       setNotifications(Array.isArray(parsed.notifications) ? parsed.notifications : []);
     } catch {
       window.localStorage.removeItem(PERSISTENCE_KEY);
@@ -108,9 +98,9 @@ export function GlobalProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (!isHydrated || typeof window === "undefined") return;
 
-    const persisted: PersistedGlobalState = { user, theme, notifications };
+    const persisted: PersistedGlobalState = { user, notifications };
     window.localStorage.setItem(PERSISTENCE_KEY, JSON.stringify(persisted));
-  }, [isHydrated, user, theme, notifications]);
+  }, [isHydrated, user, notifications]);
 
   const value = useMemo<GlobalState>(
     () => ({
@@ -119,8 +109,6 @@ export function GlobalProvider({ children }: { children: ReactNode }) {
       user,
       loginAs,
       logout,
-      theme,
-      toggleTheme,
       notifications,
       addNotification,
       dismissNotification,
@@ -131,8 +119,6 @@ export function GlobalProvider({ children }: { children: ReactNode }) {
       user,
       loginAs,
       logout,
-      theme,
-      toggleTheme,
       notifications,
       addNotification,
       dismissNotification,

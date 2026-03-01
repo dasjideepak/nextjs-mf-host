@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { useGlobalContext } from "@/context/GlobalContext";
 import type { UserRole } from "@/context/GlobalContext";
 import { LoadingState } from "@/components/home/LoadingState";
@@ -26,7 +27,7 @@ const FEATURES = [
   {
     title: "Shared Global State",
     description:
-      "Real-time state synchronization across host and remotes via a shared context — theme, notifications, auth.",
+      "Real-time state synchronization across host and remotes via a shared context — notifications and auth.",
     icon: "sync",
     color: "blue" as const,
   },
@@ -50,7 +51,7 @@ const ARCH_NODES = [
   { label: "Host App", sub: "Orchestrator", accent: "indigo" as const },
   { label: "Remote 1", sub: "Customer Portal", accent: "blue" as const },
   { label: "Remote 2", sub: "Admin Console", accent: "emerald" as const },
-  { label: "Shared UI", sub: "Component Lib", accent: "violet" as const },
+  { label: "Shared UI", sub: "Component Library", accent: "violet" as const },
 ];
 
 function FeatureIcon({ icon, color }: { icon: string; color: string }) {
@@ -70,9 +71,7 @@ function FeatureIcon({ icon, color }: { icon: string; color: string }) {
   const Icon = iconMap[icon] ?? Puzzle;
 
   return (
-    <div
-      className={`flex h-12 w-12 items-center justify-center rounded-xl ${cls}`}
-    >
+    <div className={`flex h-12 w-12 items-center justify-center rounded-xl ${cls}`}>
       <Icon className="h-6 w-6" aria-hidden="true" />
     </div>
   );
@@ -106,9 +105,7 @@ export default function Home() {
       <div className="flex min-h-screen items-center justify-center">
         <div className="text-center">
           <div className="mx-auto h-8 w-8 animate-spin rounded-full border-2 border-gray-200 border-t-indigo-600" />
-          <p className="mt-3 text-sm text-gray-500">
-            Redirecting to dashboard...
-          </p>
+          <p className="mt-3 text-sm text-gray-500">Redirecting to dashboard...</p>
         </div>
       </div>
     );
@@ -145,6 +142,18 @@ export default function Home() {
             >
               Tech Stack
             </a>
+            <Link
+              href="/faq"
+              className="text-sm font-medium text-gray-600 transition hover:text-gray-900"
+            >
+              FAQ
+            </Link>
+            <Link
+              href="/limitations"
+              className="text-sm font-medium text-gray-600 transition hover:text-gray-900"
+            >
+              Limitations
+            </Link>
           </nav>
 
           <div className="flex items-center gap-2">
@@ -202,6 +211,20 @@ export default function Home() {
               >
                 Tech Stack
               </a>
+              <Link
+                href="/faq"
+                className="rounded-lg px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                FAQ
+              </Link>
+              <Link
+                href="/limitations"
+                className="rounded-lg px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Limitations
+              </Link>
               <button
                 type="button"
                 onClick={() => handleLogin("customer")}
@@ -237,9 +260,9 @@ export default function Home() {
             </h1>
 
             <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-gray-600">
-              A production-ready platform demonstrating Module Federation with
-              Next.js. Independent deployments, shared state management, and a
-              unified component library — all working together seamlessly.
+              A production-ready platform demonstrating Module Federation with Next.js. Independent
+              deployments, shared state management, and a unified component library — all working
+              together seamlessly.
             </p>
 
             <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
@@ -249,7 +272,10 @@ export default function Home() {
                 className="group inline-flex w-full items-center justify-center gap-2 rounded-xl bg-indigo-600 px-8 py-3.5 text-base font-semibold text-white shadow-lg shadow-indigo-200 transition hover:bg-indigo-700 hover:shadow-xl hover:shadow-indigo-200 sm:w-auto"
               >
                 Try Customer Portal
-                <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" aria-hidden="true" />
+                <ArrowRight
+                  className="h-4 w-4 transition group-hover:translate-x-0.5"
+                  aria-hidden="true"
+                />
               </button>
               <button
                 type="button"
@@ -257,7 +283,10 @@ export default function Home() {
                 className="group inline-flex w-full items-center justify-center gap-2 rounded-xl border-2 border-gray-200 bg-white px-8 py-3.5 text-base font-semibold text-gray-700 transition hover:border-emerald-300 hover:bg-emerald-50 hover:text-emerald-700 sm:w-auto"
               >
                 Try Admin Console
-                <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" aria-hidden="true" />
+                <ArrowRight
+                  className="h-4 w-4 transition group-hover:translate-x-0.5"
+                  aria-hidden="true"
+                />
               </button>
             </div>
           </div>
@@ -274,9 +303,7 @@ export default function Home() {
             { value: "Zero", label: "Downtime Deploys" },
           ].map((stat) => (
             <div key={stat.label} className="text-center">
-              <p className="text-2xl font-bold text-gray-900 sm:text-3xl">
-                {stat.value}
-              </p>
+              <p className="text-2xl font-bold text-gray-900 sm:text-3xl">{stat.value}</p>
               <p className="mt-1 text-sm text-gray-500">{stat.label}</p>
             </div>
           ))}
@@ -294,8 +321,8 @@ export default function Home() {
               Everything you need for micro-frontends
             </h2>
             <p className="mt-4 text-lg text-gray-600">
-              Built with best practices for performance, developer experience,
-              and production readiness.
+              Built with best practices for performance, developer experience, and production
+              readiness.
             </p>
           </div>
 
@@ -306,12 +333,8 @@ export default function Home() {
                 className="group rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition hover:border-gray-200 hover:shadow-md"
               >
                 <FeatureIcon icon={f.icon} color={f.color} />
-                <h3 className="mt-5 text-base font-semibold text-gray-900">
-                  {f.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-gray-500">
-                  {f.description}
-                </p>
+                <h3 className="mt-5 text-base font-semibold text-gray-900">{f.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-gray-500">{f.description}</p>
               </div>
             ))}
           </div>
@@ -319,10 +342,7 @@ export default function Home() {
       </section>
 
       {/* ───── Architecture ───── */}
-      <section
-        id="architecture"
-        className="border-t border-gray-100 bg-gray-50/60 py-24"
-      >
+      <section id="architecture" className="border-t border-gray-100 bg-gray-50/60 py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
             <p className="text-sm font-semibold uppercase tracking-wider text-indigo-600">
@@ -332,8 +352,8 @@ export default function Home() {
               How it all connects
             </h2>
             <p className="mt-4 text-lg text-gray-600">
-              The host app orchestrates remote micro-frontends, sharing state
-              and a common UI library.
+              The host app orchestrates remote micro-frontends, sharing state and a common UI
+              library.
             </p>
           </div>
 
@@ -342,13 +362,10 @@ export default function Home() {
             <div className="grid w-full max-w-3xl gap-4 sm:grid-cols-2">
               {ARCH_NODES.map((node) => {
                 const accentMap: Record<string, string> = {
-                  indigo:
-                    "border-indigo-200 bg-indigo-50/50 hover:border-indigo-300",
+                  indigo: "border-indigo-200 bg-indigo-50/50 hover:border-indigo-300",
                   blue: "border-blue-200 bg-blue-50/50 hover:border-blue-300",
-                  emerald:
-                    "border-emerald-200 bg-emerald-50/50 hover:border-emerald-300",
-                  violet:
-                    "border-violet-200 bg-violet-50/50 hover:border-violet-300",
+                  emerald: "border-emerald-200 bg-emerald-50/50 hover:border-emerald-300",
+                  violet: "border-violet-200 bg-violet-50/50 hover:border-violet-300",
                 };
                 const dotMap: Record<string, string> = {
                   indigo: "bg-indigo-500",
@@ -361,13 +378,9 @@ export default function Home() {
                     key={node.label}
                     className={`flex items-center gap-4 rounded-xl border-2 p-5 transition ${accentMap[node.accent]}`}
                   >
-                    <div
-                      className={`h-3 w-3 shrink-0 rounded-full ${dotMap[node.accent]}`}
-                    />
+                    <div className={`h-3 w-3 shrink-0 rounded-full ${dotMap[node.accent]}`} />
                     <div>
-                      <p className="font-semibold text-gray-900">
-                        {node.label}
-                      </p>
+                      <p className="font-semibold text-gray-900">{node.label}</p>
                       <p className="text-sm text-gray-500">{node.sub}</p>
                     </div>
                   </div>
@@ -397,13 +410,7 @@ export default function Home() {
           </div>
 
           <div className="mx-auto mt-12 grid max-w-3xl grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-5">
-            {[
-              "Next.js",
-              "React",
-              "TypeScript",
-              "Tailwind CSS",
-              "Module Federation",
-            ].map((tech) => (
+            {["Next.js", "React", "TypeScript", "Tailwind CSS", "Module Federation"].map((tech) => (
               <div
                 key={tech}
                 className="flex items-center justify-center rounded-xl border border-gray-100 bg-white px-4 py-4 text-sm font-medium text-gray-700 shadow-sm"
@@ -419,9 +426,7 @@ export default function Home() {
       <section className="border-t border-gray-100">
         <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-gray-900">
-              Ready to explore?
-            </h2>
+            <h2 className="text-3xl font-bold tracking-tight text-gray-900">Ready to explore?</h2>
             <p className="mt-4 text-lg text-gray-600">
               Pick a role and dive into the dashboard. No sign-up required.
             </p>
@@ -454,13 +459,23 @@ export default function Home() {
             <div className="flex h-7 w-7 items-center justify-center rounded-md bg-indigo-600">
               <span className="text-xs font-bold text-white">MF</span>
             </div>
-            <span className="text-sm font-semibold text-gray-700">
-              MicroFront
-            </span>
+            <span className="text-sm font-semibold text-gray-700">MicroFront</span>
           </div>
-          <p className="text-xs text-gray-400">
-            Demo platform &middot; Next.js Module Federation
-          </p>
+          <p className="text-xs text-gray-400">Demo platform &middot; Next.js Module Federation</p>
+          <div className="flex items-center gap-3">
+            <Link
+              href="/faq"
+              className="text-xs font-medium text-indigo-600 transition hover:text-indigo-700"
+            >
+              Read FAQ
+            </Link>
+            <Link
+              href="/limitations"
+              className="text-xs font-medium text-amber-700 transition hover:text-amber-800"
+            >
+              View Limitations
+            </Link>
+          </div>
         </div>
       </footer>
     </div>

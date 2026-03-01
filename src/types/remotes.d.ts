@@ -11,8 +11,6 @@ declare module "remote1/DashboardShell" {
   }
 
   interface SharedDashboardState {
-    theme: "light" | "dark";
-    toggleTheme: () => void;
     notifications: Notification[];
     addNotification: (message: string, type: NotificationType) => void;
     dismissNotification: (id: string) => void;
@@ -36,8 +34,6 @@ declare module "remote2/DashboardShell" {
   }
 
   interface SharedDashboardState {
-    theme: "light" | "dark";
-    toggleTheme: () => void;
     notifications: Notification[];
     addNotification: (message: string, type: NotificationType) => void;
     dismissNotification: (id: string) => void;

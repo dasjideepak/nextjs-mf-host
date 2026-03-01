@@ -1,14 +1,14 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
-import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { GlobalProvider } from "@/context/GlobalContext";
+import { AppErrorBoundary } from "@dasjideepak/mf-shared-ui";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <GlobalProvider>
-      <ErrorBoundary>
+      <AppErrorBoundary>
         <Component {...pageProps} />
-      </ErrorBoundary>
+      </AppErrorBoundary>
     </GlobalProvider>
   );
 }
