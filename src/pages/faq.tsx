@@ -207,8 +207,8 @@ export default function FaqPage() {
             Next.js Module Federation Setup FAQ
           </h1>
           <p className="mt-3 text-base leading-relaxed text-gray-600">
-            This page explains how the host app, remote apps, and shared state
-            work together in this micro-frontend architecture.
+            This page explains how the host app, remote apps, and shared state work together in this
+            micro-frontend architecture.
           </p>
         </SurfaceCard>
 
