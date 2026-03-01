@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "generate:remote-safelist": "node scripts/generate-remote-safelist.mjs",
+    "predev": "npm run generate:remote-safelist",
+    "prebuild": "npm run generate:remote-safelist",
     "dev": "NEXT_PRIVATE_LOCAL_WEBPACK=true next dev",
     "build": "NEXT_PRIVATE_LOCAL_WEBPACK=true next build",
     "start": "next start",
@@ -11,6 +14,7 @@
   "dependencies": {
     "@dasjideepak/mf-shared-ui": "^1.0.0",
     "@module-federation/nextjs-mf": "^8.8.56",
+    "lucide-react": "^0.575.0",
     "next": "15.3.8",
     "react": "18.2.0",
     "react-dom": "18.2.0"
