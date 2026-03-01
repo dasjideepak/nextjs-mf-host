@@ -15,18 +15,25 @@ const nextConfig: NextConfig = {
           remote1: `remote1@${process.env.REMOTE1_URL}/_next/static/${location}/remoteEntry.js`,
           remote2: `remote2@${process.env.REMOTE2_URL}/_next/static/${location}/remoteEntry.js`,
         },
-        shared: {
-          react: {
-            singleton: true,
-            requiredVersion: false,
-            strictVersion: false,
-          },
-          "react-dom": {
-            singleton: true,
-            requiredVersion: false,
-            strictVersion: false,
-          },
-        },
+        exposes: isServer
+          ? {}
+          : { "./GlobalContext": "./src/context/GlobalContext" },
+        shared: isServer
+          ? {}
+          : {
+              react: {
+                singleton: true,
+                eager: true,
+                requiredVersion: false,
+                strictVersion: false,
+              },
+              "react-dom": {
+                singleton: true,
+                eager: true,
+                requiredVersion: false,
+                strictVersion: false,
+              },
+            },
         extraOptions: {},
       })
     );
