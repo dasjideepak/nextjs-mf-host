@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
+import { useRouter } from "next/compat/router";
 import { useGlobalContext } from "@/context/GlobalContext";
 import type { UserRole } from "@/context/GlobalContext";
 import { LoadingState } from "@/components/home/LoadingState";
@@ -80,10 +81,15 @@ function FeatureIcon({ icon, color }: { icon: string; color: string }) {
 export default function Home() {
   const { isHydrated, isAuthenticated, loginAs } = useGlobalContext();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const router = useRouter();
 
-  const navigateTo = (path: string) => {
-    if (typeof window !== "undefined") window.location.assign(path);
-  };
+  const navigateTo = useCallback(
+    (path: string) => {
+      if (!router) return;
+      void router.push(path);
+    },
+    [router],
+  );
 
   const handleLogin = (role: UserRole) => {
     loginAs(role);
@@ -94,7 +100,7 @@ export default function Home() {
     if (isHydrated && isAuthenticated) {
       navigateTo("/dashboard");
     }
-  }, [isHydrated, isAuthenticated]);
+  }, [isHydrated, isAuthenticated, navigateTo]);
 
   if (!isHydrated) {
     return <LoadingState />;

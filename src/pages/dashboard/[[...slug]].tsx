@@ -1,6 +1,7 @@
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
+import { useRouter } from "next/compat/router";
 import { useGlobalContext } from "@/context/GlobalContext";
 import { Button, Badge } from "@dasjideepak/mf-shared-ui";
 import { AlertTriangle } from "lucide-react";
@@ -54,6 +55,7 @@ const AdminDashboardShell = dynamic(
 );
 
 export default function DashboardGatewayPage() {
+  const router = useRouter();
   const {
     isHydrated,
     isAuthenticated,
@@ -65,11 +67,17 @@ export default function DashboardGatewayPage() {
     clearNotifications,
   } = useGlobalContext();
 
+  const handleLogout = useCallback(() => {
+    logout();
+    if (!router) return;
+    void router.push("/");
+  }, [logout, router]);
+
   useEffect(() => {
-    if (isHydrated && !isAuthenticated && typeof window !== "undefined") {
-      window.location.replace("/");
+    if (isHydrated && !isAuthenticated && router) {
+      void router.replace("/");
     }
-  }, [isHydrated, isAuthenticated]);
+  }, [isHydrated, isAuthenticated, router]);
 
   if (!isHydrated) {
     return (
@@ -129,7 +137,7 @@ export default function DashboardGatewayPage() {
               <p className="text-xs text-gray-500">{user.id}</p>
             </div>
             <div className="h-6 w-px bg-gray-200" />
-            <Button variant="ghost" size="sm" onClick={logout}>
+            <Button variant="ghost" size="sm" onClick={handleLogout}>
               Sign out
             </Button>
           </div>
